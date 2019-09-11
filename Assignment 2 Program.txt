@@ -1,0 +1,50 @@
+///////////////////////////////////
+//CS 241 - Assignment 1 Program
+//Philip Lee-Chin
+//Date Completed
+///////////////////////////////////
+
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+
+bool IsSet(string filename);
+
+int main()
+{
+  string data[2] = {"data1.txt","data2.txt"};
+
+  for(int i = 0;i < 2; i++)
+  {
+    cout << data[i] << ((IsSet(data[i]))?(" does "):(" does not ")) << "represent a set\n";
+  }
+  return 0;
+}
+
+bool IsSet(string filename) {
+  fstream fi;
+  fi.open(filename.c_str());
+  int x;
+  int count=0;
+  int fileArray[1000];
+
+  while(fi >> x)
+  {
+    fileArray[count] = x ;
+    count++;
+  }
+
+  fi.close();
+  for (int k=0; k<count; k++)
+  {
+    for (int j=1; j<count; j++)
+    {
+      if(fileArray[k] == fileArray[j] && k != j)
+      {
+        return false;
+      }
+    }
+  }
+  return true;
+}
